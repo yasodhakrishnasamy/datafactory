@@ -35,7 +35,8 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink"
+						"type": "AzureSqlSink",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": true,
@@ -237,6 +238,9 @@
 				"type": "string"
 			},
 			"outputtablepipeline": {
+				"type": "string"
+			},
+			"truncatetable": {
 				"type": "string"
 			}
 		},
