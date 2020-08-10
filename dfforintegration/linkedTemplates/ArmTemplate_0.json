@@ -141,12 +141,20 @@
 					"referenceName": "sourcelinkforcopydata",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"sourcefile": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "Product.csv",
+						"fileName": {
+							"value": "@dataset().sourcefile",
+							"type": "Expression"
+						},
 						"container": "sourceforcopydata"
 					},
 					"columnDelimiter": ",",
@@ -209,66 +217,20 @@
 					"referenceName": "AzureSqlDatabase",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"targettable": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "ProductID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Name",
-						"type": "varchar"
-					},
-					{
-						"name": "ProductNumber",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Color",
-						"type": "nvarchar"
-					},
-					{
-						"name": "StandardCost",
-						"type": "varchar"
-					},
-					{
-						"name": "ListPrice",
-						"type": "varchar"
-					},
-					{
-						"name": "Size",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Weight",
-						"type": "varchar"
-					},
-					{
-						"name": "ProductCategoryID",
-						"type": "varchar"
-					},
-					{
-						"name": "ProductModelID",
-						"type": "varchar"
-					},
-					{
-						"name": "SellStartDate",
-						"type": "varchar"
-					},
-					{
-						"name": "SellEndDate",
-						"type": "varchar"
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "varchar"
-					}
-				],
+				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "Product"
+					"table": {
+						"value": "@dataset().targettable",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
@@ -292,16 +254,7 @@
 							"secureOutput": true,
 							"secureInput": true
 						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "sourceforcopydata//Product.csv"
-							},
-							{
-								"name": "Destination",
-								"value": "dbo.Product"
-							}
-						],
+						"userProperties": [],
 						"typeProperties": {
 							"source": {
 								"type": "DelimitedTextSource",
@@ -314,7 +267,8 @@
 								}
 							},
 							"sink": {
-								"type": "AzureSqlSink"
+								"type": "AzureSqlSink",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"enableSkipIncompatibleRow": true,
@@ -489,20 +443,38 @@
 							{
 								"referenceName": "DelimitedText1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"sourcefile": {
+										"value": "@pipeline().parameters.inputfilepipeline",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "AzureSqlTable1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"targettable": {
+										"value": "@pipeline().parameters.outputtablepipeline",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
 				],
+				"parameters": {
+					"inputfilepipeline": {
+						"type": "string"
+					},
+					"outputtablepipeline": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
-				"lastPublishTime": "2020-08-10T08:14:17Z"
+				"lastPublishTime": "2020-08-10T08:47:53Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
