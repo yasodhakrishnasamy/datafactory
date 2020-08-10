@@ -11,6 +11,15 @@
 		"src_connectionString": {
 			"value": ""
 		},
+		"linkedService1_connectionString": {
+			"value": ""
+		},
+		"sourcelinkforcopydata_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase_connectionString": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},

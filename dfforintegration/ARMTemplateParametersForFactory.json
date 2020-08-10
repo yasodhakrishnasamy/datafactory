@@ -4,12 +4,6 @@
 	"parameters": {
 		"factoryName": {
 			"value": "dfforintegration"
-		},
-		"AzureBlobStorage1_connectionString": {
-			"value": ""
-		},
-		"src_connectionString": {
-			"value": ""
 		}
 	}
 }
