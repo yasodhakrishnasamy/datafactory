@@ -1,6 +1,7 @@
 {
 	"name": "pipeline1",
 	"properties": {
+		"description": "this is for demo",
 		"activities": [
 			{
 				"name": "Copy activity",
