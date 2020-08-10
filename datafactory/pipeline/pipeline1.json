@@ -13,16 +13,7 @@
 					"secureOutput": true,
 					"secureInput": true
 				},
-				"userProperties": [
-					{
-						"name": "Source",
-						"value": "sourceforcopydata//Product.csv"
-					},
-					{
-						"name": "Destination",
-						"value": "dbo.Product"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -238,9 +229,6 @@
 				"type": "string"
 			},
 			"outputtablepipeline": {
-				"type": "string"
-			},
-			"truncatetable": {
 				"type": "string"
 			}
 		},
