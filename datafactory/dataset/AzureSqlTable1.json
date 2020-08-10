@@ -6,10 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"sourcefile1": {
-				"type": "string"
-			},
-			"sourcefile2": {
+			"targettable": {
 				"type": "string"
 			}
 		},
@@ -71,8 +68,10 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "Product"
+			"schema": {
+				"value": "@dataset().targettable",
+				"type": "Expression"
+			}
 		}
 	}
 }

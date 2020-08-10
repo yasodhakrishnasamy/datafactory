@@ -5,12 +5,20 @@
 			"referenceName": "sourcelinkforcopydata",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"sourcefile": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Product.csv",
+				"fileName": {
+					"value": "@dataset().sourcefile",
+					"type": "Expression"
+				},
 				"container": "sourceforcopydata"
 			},
 			"columnDelimiter": ",",
