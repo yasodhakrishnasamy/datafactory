@@ -1,0 +1,29 @@
+{
+	"name": "WranglingDataFlow",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "sourceproduct",
+					"script": "",
+					"dataset": {
+						"referenceName": "sourceproduct",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"sinks": [
+				{
+					"name": "Sink1",
+					"dataset": {
+						"referenceName": "wranglingdataflowoutput",
+						"type": "DatasetReference"
+					},
+					"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Sink1"
+				}
+			],
+			"script": "section Section1;\r\nshared sourceproduct = let\r\n  AdfDoc = AzureStorage.BlobContents(\"https://sourcedatafordemo.blob.core.windows.net/sourceforcopydata/Product.csv\"),\r\n  Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]),\r\n  PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true])\r\nin\r\n  PromotedHeaders;\r\nshared UserQuery = let\r\n  Source = sourceproduct,\r\n  #\"Removed columns\" = Table.RemoveColumns(Source, {\"StandardCost\"}),\r\n  #\"Renamed columns\" = Table.RenameColumns(#\"Removed columns\", {{\"Name\", \"Productname\"}})\r\nin\r\n  #\"Renamed columns\";\r\n"
+		}
+	}
+}
