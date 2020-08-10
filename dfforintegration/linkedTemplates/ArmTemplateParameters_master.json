@@ -8,7 +8,7 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
-		"src_connectionString": {
+		"AzureSqlDatabase_connectionString": {
 			"value": ""
 		},
 		"linkedService1_connectionString": {
@@ -17,7 +17,7 @@
 		"sourcelinkforcopydata_connectionString": {
 			"value": ""
 		},
-		"AzureSqlDatabase_connectionString": {
+		"src_connectionString": {
 			"value": ""
 		},
 		"containerUri": {

@@ -11,9 +11,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
-		"src_connectionString": {
+		"AzureSqlDatabase_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'src'"
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase'"
 		},
 		"linkedService1_connectionString": {
 			"type": "secureString",
@@ -23,9 +23,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sourcelinkforcopydata'"
 		},
-		"AzureSqlDatabase_connectionString": {
+		"src_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase'"
+			"metadata": "Secure string for 'connectionString' of 'src'"
 		},
 		"containerUri": {
 			"type": "string",
@@ -57,8 +57,8 @@
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
-					"src_connectionString": {
-						"value": "[parameters('src_connectionString')]"
+					"AzureSqlDatabase_connectionString": {
+						"value": "[parameters('AzureSqlDatabase_connectionString')]"
 					},
 					"linkedService1_connectionString": {
 						"value": "[parameters('linkedService1_connectionString')]"
@@ -66,12 +66,32 @@
 					"sourcelinkforcopydata_connectionString": {
 						"value": "[parameters('sourcelinkforcopydata_connectionString')]"
 					},
-					"AzureSqlDatabase_connectionString": {
-						"value": "[parameters('AzureSqlDatabase_connectionString')]"
+					"src_connectionString": {
+						"value": "[parameters('src_connectionString')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_0')]"
+			]
 		}
 	]
 }
