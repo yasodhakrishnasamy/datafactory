@@ -209,17 +209,37 @@
 				"inputs": [
 					{
 						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"sourcefile": {
+								"value": "@pipeline().parameters.inputfilepipeline",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"targettable": {
+								"value": "@pipeline().parameters.outputtablepipeline",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"inputfilepipeline": {
+				"type": "string"
+			},
+			"outputtablepipeline": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
