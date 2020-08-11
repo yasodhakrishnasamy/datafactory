@@ -1,0 +1,22 @@
+{
+	"name": "targetprodcategory",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageformailnotificationdemo",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "prodcategory.csv",
+				"container": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
