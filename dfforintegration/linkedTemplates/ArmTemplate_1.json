@@ -169,7 +169,7 @@
 							"method": "POST",
 							"headers": {},
 							"body": {
-								"value": "{\n\"title\":''PIPELINE RUN FINISHED\",\n\"dataFactoryName\":\"pipeline().DataFactory\"\n}",
+								"value": "{\n\"title\":\"PIPELINE RUN FINISHED\",\n\"dataFactoryName\":\"@{pipeline().DataFactory}\",\n\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"triggername\":\"@{pipeline().TriggerName}\"\n}",
 								"type": "Expression"
 							},
 							"datasets": [
