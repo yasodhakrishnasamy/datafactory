@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"AzureBlobStorageformailnotificationdemo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageformailnotificationdemo'"
+		},
 		"AzureSqlDatabase_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase'"
@@ -26,10 +30,6 @@
 		"src_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'src'"
-		},
-		"AzureBlobStorageformailnotificationdemo_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageformailnotificationdemo'"
 		},
 		"containerUri": {
 			"type": "string",
@@ -61,6 +61,9 @@
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
+					"AzureBlobStorageformailnotificationdemo_connectionString": {
+						"value": "[parameters('AzureBlobStorageformailnotificationdemo_connectionString')]"
+					},
 					"AzureSqlDatabase_connectionString": {
 						"value": "[parameters('AzureSqlDatabase_connectionString')]"
 					},
@@ -72,9 +75,6 @@
 					},
 					"src_connectionString": {
 						"value": "[parameters('src_connectionString')]"
-					},
-					"AzureBlobStorageformailnotificationdemo_connectionString": {
-						"value": "[parameters('AzureBlobStorageformailnotificationdemo_connectionString')]"
 					}
 				}
 			},
