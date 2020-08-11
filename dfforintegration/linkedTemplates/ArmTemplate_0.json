@@ -26,6 +26,10 @@
 		"src_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'src'"
+		},
+		"AzureBlobStorageformailnotificationdemo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageformailnotificationdemo'"
 		}
 	},
 	"variables": {
@@ -128,6 +132,19 @@
 							]
 						}
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageformailnotificationdemo')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorageformailnotificationdemo_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -502,501 +519,151 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/sourceformailnotificationdemo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Copy activity",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": true,
-							"secureInput": true
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ProductID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductNumber",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductNumber",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Color",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Color",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "StandardCost",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "StandardCost",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ListPrice",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ListPrice",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Size",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Size",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Weight",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Weight",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductCategoryID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductCategoryID",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductModelID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductModelID",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "SellStartDate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SellStartDate",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "SellEndDate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SellEndDate",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ModifiedDate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ModifiedDate",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText1",
-								"type": "DatasetReference",
-								"parameters": {
-									"sourcefile": {
-										"value": "@pipeline().parameters.inputfilepipeline",
-										"type": "Expression"
-									}
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSqlTable1",
-								"type": "DatasetReference",
-								"parameters": {
-									"targettable": {
-										"value": "@pipeline().parameters.outputtablepipeline",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					}
-				],
-				"parameters": {
-					"inputfilepipeline": {
-						"type": "string"
-					},
-					"outputtablepipeline": {
-						"type": "string"
-					}
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageformailnotificationdemo",
+					"type": "LinkedServiceReference"
 				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "dbo_Product.csv",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
 					{
-						"name": "Lookupfortables",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select * from dbfordemo.INFORMATION_SCHEMA.TABLES\nWHERE table_type='BASE TABLE'",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "AzureSqlTable",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"firstRowOnly": false
-						}
+						"type": "String"
 					},
 					{
-						"name": "ForEachtable",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookupfortables",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookupfortables').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "exporttable",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"queryTimeout": "02:00:00",
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobStorageWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "AzureSqlTablefromeforeach",
-											"type": "DatasetReference",
-											"parameters": {
-												"tablename": {
-													"value": "@item().table_name",
-													"type": "Expression"
-												},
-												"schemaname": {
-													"value": "@item().table_schema",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "targetcsvfilefortable",
-											"type": "DatasetReference",
-											"parameters": {
-												"filename": {
-													"value": "@concat(item().table_schema,'_',item().table_name,'.csv')",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTablefromeforeach')]",
-				"[concat(variables('factoryId'), '/datasets/targetcsvfilefortable')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/WranglingDataFlow')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "WranglingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"name": "sourceproduct",
-							"script": "",
-							"dataset": {
-								"referenceName": "sourceproduct",
-								"type": "DatasetReference"
-							}
-						}
-					],
-					"sinks": [
-						{
-							"name": "Sink1",
-							"dataset": {
-								"referenceName": "wranglingdataflowoutput",
-								"type": "DatasetReference"
-							},
-							"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Sink1"
-						}
-					],
-					"script": "section Section1;\r\nshared sourceproduct = let\r\n  AdfDoc = AzureStorage.BlobContents(\"https://sourcedatafordemo.blob.core.windows.net/sourceforcopydata/Product.csv\"),\r\n  Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]),\r\n  PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true])\r\nin\r\n  PromotedHeaders;\r\nshared UserQuery = let\r\n  Source = sourceproduct,\r\n  #\"Removed columns\" = Table.RemoveColumns(Source, {\"StandardCost\"}),\r\n  #\"Renamed columns\" = Table.RenameColumns(#\"Removed columns\", {{\"Name\", \"Productname\"}})\r\nin\r\n  #\"Renamed columns\";\r\n"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/sourceproduct')]",
-				"[concat(variables('factoryId'), '/datasets/wranglingdataflowoutput')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "sourceproduct",
-								"type": "DatasetReference"
-							},
-							"name": "product"
-						},
-						{
-							"dataset": {
-								"referenceName": "sourceproductcategory",
-								"type": "DatasetReference"
-							},
-							"name": "productcategory"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "outputdataset",
-								"type": "DatasetReference"
-							},
-							"name": "productoutput"
-						}
-					],
-					"transformations": [
-						{
-							"name": "Joinproductcategory"
-						}
-					],
-					"script": "source(output(\n\t\tProductID as string,\n\t\tName as string,\n\t\tProductNumber as string,\n\t\tColor as string,\n\t\tStandardCost as string,\n\t\tListPrice as string,\n\t\tSize as string,\n\t\tWeight as string,\n\t\tProductCategoryID as string,\n\t\tProductModelID as string,\n\t\tSellStartDate as string,\n\t\tSellEndDate as string,\n\t\tModifiedDate as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> product\nsource(output(\n\t\tProductCategoryID as string,\n\t\tParentProductCategoryID as string,\n\t\tName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> productcategory\nproduct, productcategory join(product@ProductCategoryID == productcategory@ProductCategoryID,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Joinproductcategory\nJoinproductcategory sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tmapColumn(\n\t\tProductID,\n\t\tName = product@Name,\n\t\tProductNumber,\n\t\tColor,\n\t\tStandardCost,\n\t\tListPrice,\n\t\tSize,\n\t\tWeight,\n\t\tProductCategoryID = product@ProductCategoryID,\n\t\tProductModelID,\n\t\tSellStartDate,\n\t\tSellEndDate,\n\t\tModifiedDate,\n\t\tParentProductCategoryID\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> productoutput"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/sourceproduct')]",
-				"[concat(variables('factoryId'), '/datasets/sourceproductcategory')]",
-				"[concat(variables('factoryId'), '/datasets/outputdataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/mappingdataflowpipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
+						"type": "String"
+					},
 					{
-						"name": "dataflow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "dataflow1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"product": {},
-									"productcategory": {},
-									"productoutput": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							}
-						}
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
 					}
-				],
-				"annotations": []
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageformailnotificationdemo')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/targetproduct')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageformailnotificationdemo",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "product.csv",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageformailnotificationdemo')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sourceforprodcategory')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageformailnotificationdemo",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "dbo_ProductCategory.csv",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageformailnotificationdemo')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/targetprodcategory')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageformailnotificationdemo",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "prodcategory.csv",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageformailnotificationdemo')]"
 			]
 		}
 	]

@@ -20,6 +20,9 @@
 		"src_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorageformailnotificationdemo_connectionString": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},
