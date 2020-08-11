@@ -148,7 +148,7 @@
 					"url": "https://prod-10.centralindia.logic.azure.com:443/workflows/f93083456257465298e6ab576915ef4b/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=rqDVk4ud4daS--907r-e1pF0nekgD6A8jLpQCt6vlvQ",
 					"method": "POST",
 					"body": {
-						"value": "{\n\"title\":''PIPELINE RUN FINISHED\",\n\"dataFactoryName\":\"@(pipeline().DataFactory)\"\n}",
+						"value": "{\n\"title\":''PIPELINE RUN FINISHED\",\n\"dataFactoryName\":\"@pipeline().DataFactory\"\n}",
 						"type": "Expression"
 					},
 					"datasets": [
