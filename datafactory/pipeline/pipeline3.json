@@ -1,0 +1,89 @@
+{
+	"name": "pipeline3",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "adfmailnotificationdemo",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Success mail notify",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-10.centralindia.logic.azure.com:443/workflows/f93083456257465298e6ab576915ef4b/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=rqDVk4ud4daS--907r-e1pF0nekgD6A8jLpQCt6vlvQ",
+					"method": "POST",
+					"body": {
+						"value": "{\n\"title\":\"PIPELINE RUN FINISHED\",\n\"dataFactoryName\":\"@{pipeline().DataFactory}\",\n\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"triggername\":\"@{pipeline().TriggerName}\"\n}",
+						"type": "Expression"
+					},
+					"datasets": [
+						{
+							"referenceName": "sourceforprodcategory",
+							"type": "DatasetReference"
+						}
+					]
+				}
+			},
+			{
+				"name": "Failure mail notify",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-10.centralindia.logic.azure.com:443/workflows/f93083456257465298e6ab576915ef4b/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=rqDVk4ud4daS--907r-e1pF0nekgD6A8jLpQCt6vlvQ",
+					"method": "POST",
+					"body": {
+						"value": "{\n\"title\":\"PIPELINE RUN FAILED @{activity('Execute Pipeline').error.message\",\n\"dataFactoryName\":\"@{pipeline().DataFactory}\",\n\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"triggername\":\"@{pipeline().TriggerName}\"\n}",
+						"type": "Expression"
+					},
+					"datasets": [
+						{
+							"referenceName": "sourceforprodcategory",
+							"type": "DatasetReference"
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}
