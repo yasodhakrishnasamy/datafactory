@@ -672,7 +672,7 @@
 							"method": "POST",
 							"headers": {},
 							"body": {
-								"value": "{\n\"title\":\"PIPELINE RUN FAILED @{activity('Execute Pipeline').error.message\",\n\"dataFactoryName\":\"@{pipeline().DataFactory}\",\n\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"triggername\":\"@{pipeline().TriggerName}\"\n}",
+								"value": "{\n\"title\":\"PIPELINE RUN FAILED @{activity('Execute Pipeline').error.message}\",\n\"dataFactoryName\":\"@{pipeline().DataFactory}\",\n\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"triggername\":\"@{pipeline().TriggerName}\"\n}",
 								"type": "Expression"
 							},
 							"datasets": [
